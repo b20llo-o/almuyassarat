@@ -1,0 +1,130 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Tajawal', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Aref Ruqaa', serif;
+  }
+
+  .poem-text {
+    font-family: 'Amiri', serif;
+    line-height: 1.8;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply px-4 py-2 rounded-md transition-all duration-300 font-medium;
+  }
+  
+  .btn-primary {
+    @apply bg-primary-600 text-white hover:bg-primary-700;
+  }
+  
+  .btn-secondary {
+    @apply bg-secondary-600 text-white hover:bg-secondary-700;
+  }
+  
+  .btn-outline {
+    @apply border border-primary-600 text-primary-600 hover:bg-primary-50;
+  }
+  
+  .card {
+    @apply bg-white/90 backdrop-blur-sm rounded-xl shadow-md p-6 transition-all duration-300;
+  }
+  
+  .poem-card {
+    @apply card hover:shadow-lg cursor-pointer;
+  }
+  
+  .page-container {
+    @apply max-w-5xl mx-auto px-4 py-8 min-h-screen;
+  }
+  
+  .section-title {
+    @apply text-3xl md:text-4xl font-bold text-primary-800 mb-8 text-center;
+  }
+  
+  .nav-link {
+    @apply hover:text-primary-600 transition-colors duration-200;
+  }
+  
+  .nav-link.active {
+    @apply text-primary-600 font-medium;
+  }
+
+  .controls-container {
+    @apply flex flex-col sm:flex-row flex-wrap gap-3;
+  }
+
+  .font-controls {
+    @apply flex items-center gap-2 bg-primary-50 p-2 rounded-lg w-full sm:w-auto;
+  }
+
+  .sound-controls {
+    @apply flex items-center gap-2 bg-secondary-50 p-2 rounded-lg w-full sm:w-auto overflow-x-auto;
+  }
+}
+
+body {
+  background-color: #f8f6f1;
+  background-image: url('https://images.pexels.com/photos/7097459/pexels-photo-7097459.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+  background-blend-mode: overlay;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  min-height: 100vh;
+}
+
+/* Setting default styles for RTL layout */
+* {
+  direction: rtl;
+  text-align: right;
+}
+
+/* Override for specific elements that should be LTR */
+.ltr {
+  direction: ltr;
+  text-align: left;
+}
+
+.font-control-btn {
+  @apply w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full bg-primary-100 text-primary-800 hover:bg-primary-200 transition-all;
+}
+
+.sound-btn {
+  @apply flex items-center px-2 sm:px-3 py-2 rounded-md bg-secondary-100 text-secondary-800 hover:bg-secondary-200 transition-all gap-1 sm:gap-2 whitespace-nowrap text-sm sm:text-base;
+}
+
+.sound-btn.active {
+  @apply bg-secondary-200 ring-2 ring-secondary-300;
+}
+
+.poem-container {
+  transition: font-size 0.3s ease;
+}
+
+.poem-container.text-base {
+  font-size: 1rem;
+}
+
+.poem-container.text-lg {
+  font-size: 1.125rem;
+}
+
+.poem-container.text-xl {
+  font-size: 1.25rem;
+}
+
+.poem-container.text-2xl {
+  font-size: 1.5rem;
+}
+
+.poem-container.text-3xl {
+  font-size: 1.875rem;
+}
