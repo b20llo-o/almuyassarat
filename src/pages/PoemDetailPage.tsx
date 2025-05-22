@@ -4,6 +4,7 @@ import { poems } from '../data/poems';
 import { useFontSize } from '../hooks/useFontSize';
 import { useNaturalSound } from '../hooks/useSound';
 import { ArrowLeft, Type, Volume2, Wind, Cloud, Music, Waves } from 'lucide-react';
+import CommentSection from '../components/CommentSection';
 
 const PoemDetailPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -116,6 +117,9 @@ const PoemDetailPage = () => {
           {poem.content}
         </div>
       </div>
+      
+      {/* Comment Section */}
+      <CommentSection poemId={poem.id} />
     </div>
   );
 };
