@@ -17,11 +17,11 @@ const Footer = () => {
           <div>
             <h3 className="font-aref text-xl mb-4">روابط سريعة</h3>
             <ul className="space-y-2">
-              <li><a href="/poems" className="text-primary-100 hover:text-white transition-colors">القصائد</a></li>
-              <li><a href="/thoughts" className="text-primary-100 hover:text-white transition-colors">خواطر الشاعر</a></li>
-              <li><a href="/about" className="text-primary-100 hover:text-white transition-colors">تعرف علينا</a></li>
-              <li><a href="/support" className="text-primary-100 hover:text-white transition-colors">الدعم</a></li>
-              <li><a href="/contact" className="text-primary-100 hover:text-white transition-colors">اتصل بنا</a></li>
+              <li><a href="#/poems" className="text-primary-100 hover:text-white transition-colors">القصائد</a></li>
+              <li><a href="#/thoughts" className="text-primary-100 hover:text-white transition-colors">خواطر الشاعر</a></li>
+              <li><a href="#/about" className="text-primary-100 hover:text-white transition-colors">تعرف علينا</a></li>
+              <li><a href="#/support" className="text-primary-100 hover:text-white transition-colors">الدعم</a></li>
+              <li><a href="#/contact" className="text-primary-100 hover:text-white transition-colors">اتصل بنا</a></li>
             </ul>
           </div>
           
