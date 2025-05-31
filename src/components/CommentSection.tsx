@@ -1,43 +1,32 @@
 import React, { useState } from 'react';
 import { MessageSquare, Send, Clock } from 'lucide-react';
-import { Comment, useComments } from '../data/comments';
+import { useComments } from '../hooks/useComments';
+import { CommentType } from '../lib/validation';
 
 interface CommentSectionProps {
   poemId: number;
 }
 
 const CommentSection: React.FC<CommentSectionProps> = ({ poemId }) => {
-  const { comments, isLoading, addComment } = useComments(poemId);
+  const { comments, isLoading, error: fetchError, addComment } = useComments(poemId);
   const [author, setAuthor] = useState('');
   const [content, setContent] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
     
-    // Validate input
-    if (!author.trim()) {
-      setError('الرجاء إدخال اسمك');
-      return;
-    }
-    
-    if (!content.trim()) {
-      setError('الرجاء إدخال تعليقك');
-      return;
-    }
-    
-    setIsSubmitting(true);
-    
     try {
-      const result = addComment(author.trim(), content.trim());
+      setIsSubmitting(true);
+      const result = await addComment(author.trim(), content.trim());
+      
       if (result) {
         setContent('');
         setSuccess('تم إضافة تعليقك بنجاح');
         
-        // Clear success message after 3 seconds
         setTimeout(() => {
           setSuccess(null);
         }, 3000);
@@ -45,7 +34,11 @@ const CommentSection: React.FC<CommentSectionProps> = ({ poemId }) => {
         setError('حدث خطأ أثناء إضافة التعليق');
       }
     } catch (err) {
-      setError('حدث خطأ غير متوقع');
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError('حدث خطأ غير متوقع');
+      }
     } finally {
       setIsSubmitting(false);
     }
@@ -133,6 +126,8 @@ const CommentSection: React.FC<CommentSectionProps> = ({ poemId }) => {
       <div className="space-y-4">
         {isLoading ? (
           <div className="text-center py-6 text-primary-500">جاري تحميل التعليقات...</div>
+        ) : fetchError ? (
+          <div className="text-center py-6 text-accent-700">{fetchError}</div>
         ) : comments.length === 0 ? (
           <div className="text-center py-6 text-primary-500">لا توجد تعليقات بعد. كن أول من يعلق!</div>
         ) : (
@@ -142,7 +137,7 @@ const CommentSection: React.FC<CommentSectionProps> = ({ poemId }) => {
                 <h4 className="font-aref font-bold text-primary-700">{comment.author}</h4>
                 <div className="flex items-center text-primary-400 text-sm">
                   <Clock size={14} className="ml-1" />
-                  {formatDate(comment.timestamp)}
+                  {formatDate(comment.timestamp || 0)}
                 </div>
               </div>
               <p className="text-primary-600 whitespace-pre-line">{comment.content}</p>
