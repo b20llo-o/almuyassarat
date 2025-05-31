@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { MessageSquare, Send, Clock } from 'lucide-react';
-import { useComments } from '../hooks/useComments';
-import { CommentSchema } from '../lib/validation';
 
 interface CommentSectionProps {
   poemId: number;
