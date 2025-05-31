@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { MessageSquare, Send, Clock } from 'lucide-react';
 import { useComments } from '../hooks/useComments';
-import { CommentType } from '../lib/validation';
+import { CommentSchema } from '../lib/validation';
 
 interface CommentSectionProps {
   poemId: number;
@@ -20,8 +20,15 @@ const CommentSection: React.FC<CommentSectionProps> = ({ poemId }) => {
     setError(null);
     
     try {
+      // Validate input using Zod schema
+      CommentSchema.parse({
+        poemId,
+        author: author.trim(),
+        content: content.trim(),
+      });
+      
       setIsSubmitting(true);
-      const result = await addComment(author.trim(), content.trim());
+      const result = await addComment(author, content);
       
       if (result) {
         setContent('');
